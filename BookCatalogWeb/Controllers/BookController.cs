@@ -18,7 +18,7 @@ public class BookController : Controller
 
     public List<Book> GetSortedList()
     {
-        return _database.Categories.OrderBy(category => category.DisplayOrder).ToList();
+        return _database.Books.OrderBy(book => book.DisplayOrder).ToList();
     }
 
     public IActionResult Index()
@@ -30,6 +30,7 @@ public class BookController : Controller
     //GET
     public IActionResult Create()
     {
+        ViewData["Categories"] = _database.Categories;
         return View();
     }
 
@@ -46,12 +47,14 @@ public class BookController : Controller
             return NotFound();
         }
 
-        var bookFromDb = _database.Categories.Find(id);
+        var bookFromDb = _database.Books.Find(id);
 
         if (bookFromDb == null)
         {
             return NotFound();
         }
+
+        ViewData["Categories"] = _database.Categories;
 
         return View(bookFromDb);
     }
@@ -64,7 +67,7 @@ public class BookController : Controller
             return NotFound();
         }
 
-        var bookFromDb = _database.Categories.Find(id);
+        var bookFromDb = _database.Books.Find(id);
 
         if (bookFromDb == null)
         {
@@ -79,7 +82,7 @@ public class BookController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(Book book)
     {
-        _database.Categories.Remove(book);
+        _database.Books.Remove(book);
         _database.SaveChanges();
 
         MarkInTempData("deleted");
@@ -102,7 +105,7 @@ public class BookController : Controller
             return View(book);
         }
 
-        _database.Categories.Update(book);
+        _database.Books.Update(book);
         _database.SaveChanges();
 
         MarkInTempData("updated");
@@ -130,7 +133,7 @@ public class BookController : Controller
             return View(book);
         }
 
-        _database.Categories.Add(book);
+        _database.Books.Add(book);
         _database.SaveChanges();
 
         MarkInTempData("created");

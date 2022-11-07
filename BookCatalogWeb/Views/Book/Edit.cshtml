@@ -17,6 +17,11 @@
 			<input asp-for="DisplayOrder" class="form-control" />
 			<span asp-validation-for="DisplayOrder" class="text-danger"></span>
 		</div>
+		<div class="mb-3">
+			<label asp-for="Category"></label>
+			@Html.DropDownListFor(model => model.Category, new SelectList(ViewData["Categories"] as IEnumerable<string>), "Select category", new { @class = "form-control", } )
+			<span asp-validation-for="Category" class="text-danger"></span>
+		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
 		<a asp-controller="Book" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Back to List
