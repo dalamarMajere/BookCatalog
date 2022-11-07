@@ -1,6 +1,8 @@
 ﻿using BookCatalogWeb.Data;
 using BookCatalogWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace BookCatalogWeb.Controllers;
 
@@ -14,14 +16,24 @@ public class BookController : Controller
         _database = databse; 
     }
 
+    public List<Book> GetSortedList()
+    {
+        return _database.Categories.OrderBy(category => category.DisplayOrder).ToList();
+    }
+
     public IActionResult Index()
     {
-        IEnumerable<Book> bookList = _database.Categories;
+        IEnumerable<Book> bookList = GetSortedList();
         return View(bookList);
     }
 
     //GET
     public IActionResult Create()
+    {
+        return View();
+    }
+
+    public IActionResult Random()
     {
         return View();
     }
@@ -41,7 +53,6 @@ public class BookController : Controller
             return NotFound();
         }
 
-
         return View(bookFromDb);
     }
 
@@ -59,7 +70,6 @@ public class BookController : Controller
         {
             return NotFound();
         }
-
 
         return View(bookFromDb);
     }

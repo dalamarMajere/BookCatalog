@@ -24,10 +24,10 @@
     <thead>
         <tr>
             <th>
-                book Name
+                Display Order
             </th>
             <th>
-                Display Order
+                book Name
             </th>
         </tr>
     </thead>
@@ -35,12 +35,12 @@
         @foreach(var obj in Model)
         {
             <tr>
-                <td width="50%">
-                    @obj.Name
-                </td>        
                 <td width="30%">
                     @obj.DisplayOrder
                 </td>
+                <td width="50%">
+                    @obj.Name
+                </td>    
                 <td width="30%">
                     <div class="w-75 btn-group" role="group">
                         <a asp-controller="Book" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
