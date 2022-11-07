@@ -2,11 +2,11 @@
 
 namespace BookCatalogWeb.Models;
 
-public record Category
+public record Book
 {
     [Key]
     public int Id { get; init; } 
-    [Required]
+    [Required(ErrorMessage = "Please provide a name for this book!")]
     public string Name { get; init; }
     public int DisplayOrder { get; init; }
     public DateTime CreatedDateTime { get; init; } = DateTime.Now;
