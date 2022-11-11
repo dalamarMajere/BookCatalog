@@ -30,13 +30,25 @@ public class BookController : Controller
     //GET
     public IActionResult Create()
     {
-        ViewData["Categories"] = _database.Categories;
-        return View();
+        IEnumerable<Category> categories = _database.Categories;
+        var item = new BookWithCategories() { Book = new(), Categories = categories.Select(category => category.Name) };
+        return View(item);
     }
 
     public IActionResult Random()
     {
         return View();
+    }
+    
+    public IActionResult Filter()
+    {
+        return View(_database.Categories);
+    }
+
+    [HttpPost]
+    public IActionResult Filter(IEnumerable<Category> categories)
+    {
+        return NoContent();
     }
 
     //GET
@@ -53,8 +65,6 @@ public class BookController : Controller
         {
             return NotFound();
         }
-
-        ViewData["Categories"] = _database.Categories;
 
         return View(bookFromDb);
     }
@@ -121,19 +131,19 @@ public class BookController : Controller
     //POST
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Book book)
+    public IActionResult Create(BookWithCategories bookWithCategory)
     {
-        if (book.DisplayOrder < 0)
+        if (bookWithCategory.Book.DisplayOrder < 0)
         {
             ModelState.AddModelError("displayorder", "The Display Order cannot be less than zero");
         }
 
         if (!ModelState.IsValid)
         {
-            return View(book);
+            return View(bookWithCategory);
         }
 
-        _database.Books.Add(book);
+        _database.Books.Add(bookWithCategory.Book);
         _database.SaveChanges();
 
         MarkInTempData("created");

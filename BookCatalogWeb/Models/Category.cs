@@ -5,7 +5,7 @@ namespace BookCatalogWeb.Models;
 public record Category
 {
 	[Key]
-	public int Id { get; init; }
+	public int CategoryId { get; init; }
 	[Required] 
 	public string Name { get; init; }
 	public string Description { get; init; }

@@ -1,4 +1,4 @@
-﻿@model Book
+﻿@model BookWithCategories
 
 <form method="post" asp-action="Create">
 	<div class="border p-3 mt-4">
@@ -8,18 +8,19 @@
 		</div>
 		<div asp-validation-summary="All"></div>
 		<div class="mb-3">
-			<label asp-for="Name"></label>
-			<input asp-for="Name" class="form-control" />
-			<span asp-validation-for="Name" class="text-danger"></span>
+			<label asp-for="Book.Name"></label>
+			<input asp-for="Book.Name" class="form-control" />
+			<span asp-validation-for="Book.Name" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="DisplayOrder"></label>
-			<input asp-for="DisplayOrder" class="form-control" />
-			<span asp-validation-for="DisplayOrder" class="text-danger"></span>
+			<label asp-for="Book.DisplayOrder"></label>
+			<input asp-for="Book.DisplayOrder" class="form-control" />
+			<span asp-validation-for="Book.DisplayOrder" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Category"></label>
-			@Html.DropDownListFor(model => model.Category, new SelectList(ViewData["Categories"] as IEnumerable<Category>), "Select category", new { @class = "form-control", } )
+			<label asp-for="Categories"></label>
+			@Html.DropDownListFor(model => model.Book.Category, new SelectList(Model.Categories), "Select category", new { @class = "form-control", } )
+			<span asp-validation-for="Book.Category" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Create</button>
 		<a asp-controller="Book" asp-action="Index" class="btn btn-secondary" style="width:150px">
