@@ -19,7 +19,7 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="Category"></label>
-			@Html.DropDownListFor(model => model.Category, new SelectList(ViewData["Categories"] as IEnumerable<string>), "Select category", new { @class = "form-control", } )
+			@Html.DropDownListFor(model => model.Category, new SelectList(ViewData["Categories"] as IEnumerable<Category>), "Select category", new { @class = "form-control", } )
 			<span asp-validation-for="Category" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>

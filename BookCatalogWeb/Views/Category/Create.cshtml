@@ -1,8 +1,9 @@
-﻿@model Book
-<form method="post" asp-action="Random">
+﻿@model Category
+
+<form method="post" asp-action="Create">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Create a Book</h2>
+			<h2 class="text-primary">Create a Category</h2>
 			<hr />
 		</div>
 		<div asp-validation-summary="All"></div>
@@ -12,9 +13,9 @@
 			<span asp-validation-for="Name" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="DisplayOrder"></label>
-			<input asp-for="DisplayOrder" class="form-control" />
-			<span asp-validation-for="DisplayOrder" class="text-danger"></span>
+			<label asp-for="Description"></label>
+			<input asp-for="Description" class="form-control" />
+			<span asp-validation-for="Description" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Create</button>
 		<a asp-controller="Book" asp-action="Index" class="btn btn-secondary" style="width:150px">
